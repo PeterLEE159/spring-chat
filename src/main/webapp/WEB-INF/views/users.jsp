@@ -49,7 +49,6 @@ $(function() {
 	
 	ws.onmessage = function(event) {
 		var data = event.data;
-		console.log("data --> ", data);
 		var dataItems = data.split(":");
 		var protocol = dataItems[0];
 		

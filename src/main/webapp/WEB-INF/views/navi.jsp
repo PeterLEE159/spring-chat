@@ -8,7 +8,7 @@
     	<ul class="nav navbar-nav">
       		<li class="active"><a href="/home.do">Home</a></li>
       		<c:if test="${not empty LOGIN_USER }">
-      			<li><a href="/users.do">목록</a></li>
+      			<li><a href="/users.do">대화하기</a></li>
       		</c:if>
     	</ul>
     	<ul class="nav navbar-nav navbar-right">
