@@ -71,16 +71,16 @@ $(function() {
 			
 			var html = "<div class='col-sm-6' id='chatbox-"+chatId+"'>";
 			html += "<div class='panel panel-default' >";
-			html += "	<div class='panel-heading'>"+chatId+"님과 대화중 <button class='btn btn-danger btn-xs pull-right' id='btn-close-"+chatId+"'>닫기</div>";
+			html += "	<div class='panel-heading'><strong>"+chatId+"</strong>님과 대화중 <button class='btn btn-danger btn-xs pull-right' id='btn-close-"+chatId+"'>닫기</div>";
 			html += "	<div class='panel-body' id='chatbox-message-"+chatId+"'></div>";
 			html += "	<div class='panel-footer'>";
-			html += "		<form class='form-horizontal' id='message-form-"+chatId+"'>";
+			html += "		<form class='form-horizontal'>";
 			html += "			<div class='form-group'>";
-			html += "				<div class='col-sm-10'>";
+			html += "				<div class='col-sm-8 col-sm-offset-1'>";
 			html += "					<input type='text' class='form-control' name='message' id='input-message-"+chatId+"'>";
 			html += "				</div>";
-			html += "				<div class='col-sm-2'>";
-			html += "					<button type='button' class='btn btn-default btn-sm' id='btn-send-"+chatId+"'>전송</button>";
+			html += "				<div class='col-sm-1'>";
+			html += "					<button type='button' class='btn btn-default btn-md' id='btn-send-"+chatId+"'>전송</button>";
 			html += "				</div>";
 			html += "			</div>";
 			html += "		</form>";
@@ -96,7 +96,7 @@ $(function() {
 			var chatId = dataItems[1];
 			var sendId = dataItems[2];
 			var message = dataItems[3];
-			var $chatbox = $("#chatbox-message-"+chatId).append("<p>["+sendId+"] "+message+"</p>");
+			var $chatbox = $("#chatbox-message-"+chatId).append("<p><strong>"+sendId+"</strong> "+message+"</p>");
 		}
 	};
 	
@@ -122,6 +122,18 @@ $(function() {
 		if (message != "") {
 			ws.send("MSG:" + chatId + ":" + message);
 			$("#input-message-"+chatId).val("");
+		}
+	});
+	
+	$("#div-checkbox-container").on('keydown', 'input[type=text]', function(event) {
+		if (event.which == 13) {
+			event.preventDefault();
+			var chatId = $(this).attr('id').replace('input-message-', '');
+			var message = $(this).val();
+			if (message != "") {
+				ws.send("MSG:" + chatId + ":" + message);
+				$(this).val("");
+			}
 		}
 	})
 	
